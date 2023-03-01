@@ -20,20 +20,30 @@ class MainTabController: UITabBarController {
         if #available(iOS 15.0, *) {
             tabBar.scrollEdgeAppearance = tabBar.standardAppearance
             let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
+            appearance.configureWithDefaultBackground()
             appearance.backgroundColor = .systemBackground
             tabBar.standardAppearance = appearance
         }
-        let feed = FeedViewController()
-        feed.tabBarItem.image = UIImage(named: "home_unselected")
-        let explore = ExploreViewController()
-        explore.tabBarItem.image = UIImage(named: "search_unselected")
-        let notifications = NotificationsViewController()
-        notifications.tabBarItem.image = UIImage(named: "search_unselected")
-        let conservations = ConservationsViewController()
-        conservations.tabBarItem.image = UIImage(named: "search_unselected")
+    
+        let feedTab = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedViewController())
+        let exploreTab = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreViewController())
+        let notificationsTab = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsViewController())
+        let conservationsTab = templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConservationsViewController())
 
-        viewControllers = [feed, explore, notifications, conservations]
+        viewControllers = [feedTab, exploreTab, notificationsTab, conservationsTab]
+    }
+    
+    func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: rootViewController)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithDefaultBackground()
+        navigationBarAppearance.backgroundColor = .systemBackground
+        nav.navigationBar.standardAppearance = navigationBarAppearance
+        nav.navigationBar.compactAppearance = navigationBarAppearance
+        nav.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        
+        nav.tabBarItem.image = image
+        return nav
     }
 
 }
