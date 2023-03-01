@@ -14,6 +14,10 @@
 		FCC22D9829AF74B2002DEDC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCC22D9729AF74B2002DEDC3 /* Assets.xcassets */; };
 		FCC22D9B29AF74B2002DEDC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCC22D9929AF74B2002DEDC3 /* LaunchScreen.storyboard */; };
 		FCC22DAE29AF75B2002DEDC3 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DAD29AF75B2002DEDC3 /* MainTabController.swift */; };
+		FCC22DB029AF7713002DEDC3 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DAF29AF7713002DEDC3 /* FeedViewController.swift */; };
+		FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB129AF7735002DEDC3 /* ExploreViewController.swift */; };
+		FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB329AF7748002DEDC3 /* NotificationsViewController.swift */; };
+		FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		FCC22D9A29AF74B2002DEDC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCC22D9C29AF74B2002DEDC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCC22DAD29AF75B2002DEDC3 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		FCC22DAF29AF7713002DEDC3 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		FCC22DB129AF7735002DEDC3 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		FCC22DB329AF7748002DEDC3 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConservationsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +108,10 @@
 			isa = PBXGroup;
 			children = (
 				FCC22DAD29AF75B2002DEDC3 /* MainTabController.swift */,
+				FCC22DAF29AF7713002DEDC3 /* FeedViewController.swift */,
+				FCC22DB129AF7735002DEDC3 /* ExploreViewController.swift */,
+				FCC22DB329AF7748002DEDC3 /* NotificationsViewController.swift */,
+				FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,7 +203,11 @@
 			files = (
 				FCC22D9329AF74B1002DEDC3 /* ViewController.swift in Sources */,
 				FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */,
+				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
+				FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */,
+				FCC22DB029AF7713002DEDC3 /* FeedViewController.swift in Sources */,
 				FCC22DAE29AF75B2002DEDC3 /* MainTabController.swift in Sources */,
+				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,
 				FCC22D9129AF74B1002DEDC3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

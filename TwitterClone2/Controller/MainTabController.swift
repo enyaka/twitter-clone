@@ -8,23 +8,32 @@
 import UIKit
 
 class MainTabController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .green
+        configureViewControllers()
         // Do any additional setup after loading the view.
     }
     
+    
+    func configureViewControllers() {
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .systemBackground
+            tabBar.standardAppearance = appearance
+        }
+        let feed = FeedViewController()
+        feed.tabBarItem.image = UIImage(named: "home_unselected")
+        let explore = ExploreViewController()
+        explore.tabBarItem.image = UIImage(named: "search_unselected")
+        let notifications = NotificationsViewController()
+        notifications.tabBarItem.image = UIImage(named: "search_unselected")
+        let conservations = ConservationsViewController()
+        conservations.tabBarItem.image = UIImage(named: "search_unselected")
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        viewControllers = [feed, explore, notifications, conservations]
     }
-    */
 
 }
