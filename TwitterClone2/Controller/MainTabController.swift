@@ -14,7 +14,7 @@ class MainTabController: UITabBarController {
         button.tintColor = .white
         button.backgroundColor = .twitterBlue
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
-        button.layer.cornerRadius = 56 / 2
+        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         return button
     }()
     
@@ -25,8 +25,11 @@ class MainTabController: UITabBarController {
 
     }
     func configureUI() {
+        let buttonHeight : CGFloat = 56
         view.addSubview(actionButton)
-        actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
+        actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: buttonHeight)
+        actionButton.layer.cornerRadius = buttonHeight / 2
+
        
     }
     
@@ -58,6 +61,10 @@ class MainTabController: UITabBarController {
         
         nav.tabBarItem.image = image
         return nav
+    }
+    
+    @objc func tapped() {
+        print(123)
     }
 
 }

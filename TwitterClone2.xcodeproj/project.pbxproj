@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2C884329AFBDF1006C757B /* Extensions.swift */; };
+		FC2C884729AFC101006C757B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2C884629AFC101006C757B /* LoginViewController.swift */; };
+		FC2C884929AFC109006C757B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2C884829AFC109006C757B /* RegisterViewController.swift */; };
 		FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D8E29AF74B1002DEDC3 /* AppDelegate.swift */; };
 		FCC22D9129AF74B1002DEDC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D9029AF74B1002DEDC3 /* SceneDelegate.swift */; };
 		FCC22D9329AF74B1002DEDC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D9229AF74B1002DEDC3 /* ViewController.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		FC2C884329AFBDF1006C757B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FC2C884629AFC101006C757B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FC2C884829AFC109006C757B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		FCC22D8B29AF74B1002DEDC3 /* TwitterClone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC22D8E29AF74B1002DEDC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCC22D9029AF74B1002DEDC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC2C884529AFC0EB006C757B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FC2C884629AFC101006C757B /* LoginViewController.swift */,
+				FC2C884829AFC109006C757B /* RegisterViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		FCC22D8229AF74B1002DEDC3 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +122,7 @@
 		FCC22DAA29AF754B002DEDC3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FC2C884529AFC0EB006C757B /* Authentication */,
 				FCC22DAD29AF75B2002DEDC3 /* MainTabController.swift */,
 				FCC22DAF29AF7713002DEDC3 /* FeedViewController.swift */,
 				FCC22DB129AF7735002DEDC3 /* ExploreViewController.swift */,
@@ -205,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCC22D9329AF74B1002DEDC3 /* ViewController.swift in Sources */,
+				FC2C884929AFC109006C757B /* RegisterViewController.swift in Sources */,
 				FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */,
 				FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */,
 				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
@@ -212,6 +227,7 @@
 				FCC22DB029AF7713002DEDC3 /* FeedViewController.swift in Sources */,
 				FCC22DAE29AF75B2002DEDC3 /* MainTabController.swift in Sources */,
 				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,
+				FC2C884729AFC101006C757B /* LoginViewController.swift in Sources */,
 				FCC22D9129AF74B1002DEDC3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
