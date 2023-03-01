@@ -11,11 +11,14 @@ class NotificationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        configureUI()
 
         // Do any additional setup after loading the view.
     }
-    
+    func configureUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Notifications"
+    }
 
     /*
     // MARK: - Navigation

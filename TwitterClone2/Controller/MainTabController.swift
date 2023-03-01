@@ -9,12 +9,26 @@ import UIKit
 
 class MainTabController: UITabBarController {
     
+    let actionButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        button.backgroundColor = .twitterBlue
+        button.setImage(UIImage(named: "new_tweet"), for: .normal)
+        button.layer.cornerRadius = 56 / 2
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewControllers()
-        // Do any additional setup after loading the view.
+        configureUI()
+
     }
-    
+    func configureUI() {
+        view.addSubview(actionButton)
+        actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
+       
+    }
     
     func configureViewControllers() {
         if #available(iOS 15.0, *) {

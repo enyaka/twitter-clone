@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2C884329AFBDF1006C757B /* Extensions.swift */; };
 		FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D8E29AF74B1002DEDC3 /* AppDelegate.swift */; };
 		FCC22D9129AF74B1002DEDC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D9029AF74B1002DEDC3 /* SceneDelegate.swift */; };
 		FCC22D9329AF74B1002DEDC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D9229AF74B1002DEDC3 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FC2C884329AFBDF1006C757B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FCC22D8B29AF74B1002DEDC3 /* TwitterClone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCC22D8E29AF74B1002DEDC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCC22D9029AF74B1002DEDC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		FCC22DAC29AF7562002DEDC3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FC2C884329AFBDF1006C757B /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCC22D9329AF74B1002DEDC3 /* ViewController.swift in Sources */,
+				FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */,
 				FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */,
 				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
 				FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */,

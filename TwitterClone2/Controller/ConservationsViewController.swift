@@ -11,11 +11,13 @@ class ConservationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
-
+        configureUI()
         // Do any additional setup after loading the view.
     }
-    
+    func configureUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Messages"
+    }
 
     /*
     // MARK: - Navigation
