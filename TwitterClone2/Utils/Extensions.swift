@@ -94,3 +94,15 @@ extension UIColor {
     
     static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
 }
+
+extension UITextField {
+    func setLeadingIcon(_ image: UIImage?) {
+           let container = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+           let leadingIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+           leadingIcon.image = image
+           leadingIcon.contentMode = .scaleAspectFit
+           leadingIcon.tintColor = .black
+           container.addSubview(leadingIcon)
+           leftView = container
+       }
+}

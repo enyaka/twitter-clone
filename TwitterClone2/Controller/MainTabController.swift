@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabController: UITabBarController {
     
-    let actionButton : UIButton = {
+    private let actionButton : UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.backgroundColor = .twitterBlue
