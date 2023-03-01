@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     private let logo : UIImageView = {
         let logo = UIImageView()
@@ -16,17 +16,6 @@ class LoginViewController: UIViewController {
         logo.clipsToBounds = true
         return logo
     }()
-//    private lazy var emailContainerView : UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .red
-//
-//        return view
-//    }()
-//    private lazy var passwordContainerView : UIView = {
-//       let view = UIView()
-//        view.backgroundColor = .green
-//        return view
-//    }()
     
     private let emailField : FormTextFieldView = {
         let view = FormTextFieldView()
@@ -42,6 +31,19 @@ class LoginViewController: UIViewController {
         view.textField.isSecureTextEntry = true
         return view
     }()
+    
+    private let loginButton : AuthButton = {
+        let button = AuthButton(title: "Login")
+        button.addTarget(self, action: #selector(login), for: .touchUpInside)
+        return button
+    }()
+    
+    private let newAccount : UIButton = {
+        let button = Utilities().attributedButton("Don't have an account? ", "Sign Up")
+        button.addTarget(self, action: #selector(signUp), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -57,17 +59,22 @@ class LoginViewController: UIViewController {
         
         logo.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
         logo.setDimensions(width: 150, height: 150)
-        
-//        emailContainerView.anchor(height: 50)
-//        passwordContainerView.anchor(height: 50)
-//        let stack : UIStackView = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
        
-        let stack : UIStackView = UIStackView(arrangedSubviews: [emailField, passwordField])
+        let stack : UIStackView = UIStackView(arrangedSubviews: [emailField, passwordField, loginButton])
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = 20
         
         view.addSubview(stack)
-        stack.anchor(top: logo.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 16,paddingRight: 16)
+        stack.anchor(top: logo.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32,paddingRight: 32)
+        view.addSubview(newAccount)
+        newAccount.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor,paddingBottom: 16)
+    }
+    
+    @objc func login() {
+        print("Login")
+    }
+    @objc func signUp() {
+        print("Sign Up")
     }
 
 }

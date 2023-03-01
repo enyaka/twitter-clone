@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabController: UITabBarController {
+final class MainTabController: UITabBarController {
     
     private let actionButton : UIButton = {
         let button = UIButton(type: .system)

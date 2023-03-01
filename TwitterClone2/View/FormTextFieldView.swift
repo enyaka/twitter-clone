@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FormTextFieldView : UIView {
+final class FormTextFieldView : UIView {
     let textField : UITextField = {
         let field = UITextField()
         field.leftViewMode = .always
