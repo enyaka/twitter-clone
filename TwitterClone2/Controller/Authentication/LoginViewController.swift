@@ -19,28 +19,26 @@ final class LoginViewController: UIViewController {
     
     private let emailField : FormTextFieldView = {
         let view = FormTextFieldView()
-        view.textField.setLeadingIcon(UIImage(named: "ic_mail_outline_white_2x-1"))
-        view.textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        view.setPlaceHolderAndIcon(placeHolder: "Email", icon: UIImage(named: "ic_mail_outline_white_2x-1"))
         return view
     }()
     
     private let passwordField : FormTextFieldView = {
         let view = FormTextFieldView()
-        view.textField.setLeadingIcon(UIImage(named: "ic_lock_outline_white_2x"))
-        view.textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        view.setPlaceHolderAndIcon(placeHolder: "Password", icon: UIImage(named: "ic_lock_outline_white_2x"))
         view.textField.isSecureTextEntry = true
         return view
     }()
     
     private let loginButton : AuthButton = {
         let button = AuthButton(title: "Login")
-        button.addTarget(self, action: #selector(login), for: .touchUpInside)
+        button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         return button
     }()
     
     private let newAccount : UIButton = {
         let button = Utilities().attributedButton("Don't have an account? ", "Sign Up")
-        button.addTarget(self, action: #selector(signUp), for: .touchUpInside)
+        button.addTarget(self, action: #selector(signUpTapped), for: .touchUpInside)
         return button
     }()
     
@@ -70,11 +68,12 @@ final class LoginViewController: UIViewController {
         newAccount.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor,paddingBottom: 16)
     }
     
-    @objc func login() {
+    @objc func loginTapped() {
         print("Login")
     }
-    @objc func signUp() {
-        print("Sign Up")
+    @objc func signUpTapped() {
+        let controller = RegisterViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 
 }

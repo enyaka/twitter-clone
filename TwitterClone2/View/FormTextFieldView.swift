@@ -35,4 +35,8 @@ final class FormTextFieldView : UIView {
         textField.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor)
         divider.anchor(top: textField.bottomAnchor,left: leftAnchor,right: rightAnchor,paddingTop: 10,height: 0.75)
     }
+    func setPlaceHolderAndIcon(placeHolder: String, icon: UIImage?) {
+        textField.setLeadingIcon(icon)
+        textField.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    }
 }
