@@ -9,6 +9,8 @@ import UIKit
 
 final class RegisterViewController: UIViewController {
     
+    private let imagePicker = UIImagePickerController()
+    
     private let addPhotoButton : UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
@@ -60,8 +62,11 @@ final class RegisterViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .twitterBlue
         
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
         view.addSubview(addPhotoButton)
-        addPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
+        addPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor,paddingTop: 32)
         addPhotoButton.setDimensions(width: 150, height: 150)
        
         let stack : UIStackView = UIStackView(arrangedSubviews: [emailField, passwordField, fullnameField, usernameField, registerButton])
@@ -84,6 +89,23 @@ final class RegisterViewController: UIViewController {
     }
 
     @objc func addPhotoTapped() {
+        present(imagePicker, animated: true) {
+            
+        }
+    }
+}
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else {return}
+        addPhotoButton.layer.cornerRadius = 75
+        addPhotoButton.layer.masksToBounds = true
+        addPhotoButton.imageView?.contentMode = .scaleAspectFill
+        addPhotoButton.imageView?.clipsToBounds = true
+        addPhotoButton.layer.borderColor = UIColor.white.cgColor
+        addPhotoButton.layer.borderWidth = 3
+        self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        dismiss(animated: true)
         
     }
 }
