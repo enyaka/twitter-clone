@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Firebase
 
 final class RegisterViewController: UIViewController {
     
     private let imagePicker = UIImagePickerController()
+    private var profileImage : UIImage?
     
     private let addPhotoButton : UIButton = {
         let button = UIButton(type: .system)
@@ -81,6 +83,30 @@ final class RegisterViewController: UIViewController {
     }
     
     @objc func registerTapped() {
+        guard let email = emailField.textField.text else {return}
+        guard let password = passwordField.textField.text else {return}
+        guard let fullname = fullnameField.textField.text else {return}
+        guard let username = usernameField.textField.text else {return}
+        guard let profileImage = profileImage else {
+            print("DEBUG: Profile image is nil")
+            return
+        }
+        
+        print("DEBUG: Email : \(email) \nPassword: \(password)")
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("ERROR: \(error.localizedDescription)")
+                return
+            }
+            print("DEBUG: User succesfuly created")
+            guard let uid = result?.user.uid else {return}
+            let values = ["email" : email, "username" : username, "fullname" : fullname]
+            let ref =  Database.database().reference().child("users").child(uid)
+            ref.updateChildValues(values) { error, ref in
+                print("DEBUG: Successfully updated user information")
+            }
+        }
+        
         
     }
     
@@ -98,6 +124,7 @@ final class RegisterViewController: UIViewController {
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else {return}
+        self.profileImage = profileImage
         addPhotoButton.layer.cornerRadius = 75
         addPhotoButton.layer.masksToBounds = true
         addPhotoButton.imageView?.contentMode = .scaleAspectFill
