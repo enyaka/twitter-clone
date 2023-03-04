@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class MainTabController: UITabBarController {
     
@@ -20,10 +21,12 @@ final class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewControllers()
-        configureUI()
-
+        view.backgroundColor = .twitterBlue
+//        logUserOut()
+        authenticateUserAndConfigureUI()
+       
     }
+    
     func configureUI() {
         let buttonHeight : CGFloat = 56
         view.addSubview(actionButton)
@@ -61,6 +64,26 @@ final class MainTabController: UITabBarController {
         
         nav.tabBarItem.image = image
         return nav
+    }
+    
+    func authenticateUserAndConfigureUI() {
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginViewController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
+            }
+        } else {
+            configureViewControllers()
+            configureUI()
+        }
+    }
+    func logUserOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("DEBUG: Failed to sign out -> \(error.localizedDescription)")
+        }
     }
     
     @objc func tapped() {
