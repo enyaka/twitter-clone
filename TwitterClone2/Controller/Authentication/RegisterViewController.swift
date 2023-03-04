@@ -9,48 +9,48 @@ import UIKit
 import Firebase
 
 final class RegisterViewController: UIViewController {
-    
+
     private let imagePicker = UIImagePickerController()
-    private var profileImage : UIImage?
-    
-    private let addPhotoButton : UIButton = {
+    private var profileImage: UIImage?
+
+    private let addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(addPhotoTapped), for: .touchUpInside)
         return button
     }()
-    
-    private let emailField : FormTextFieldView = {
+
+    private let emailField: FormTextFieldView = {
         let view = FormTextFieldView()
         view.setPlaceHolderAndIcon(placeHolder: "Email", icon: UIImage(named: "ic_mail_outline_white_2x-1"))
         return view
     }()
-    
-    private let passwordField : FormTextFieldView = {
+
+    private let passwordField: FormTextFieldView = {
         let view = FormTextFieldView()
         view.setPlaceHolderAndIcon(placeHolder: "Password", icon: UIImage(named: "ic_lock_outline_white_2x"))
         view.textField.isSecureTextEntry = true
         return view
     }()
-    private let fullnameField : FormTextFieldView = {
+    private let fullnameField: FormTextFieldView = {
         let view = FormTextFieldView()
         view.setPlaceHolderAndIcon(placeHolder: "Full name", icon: UIImage(named: "ic_mail_outline_white_2x-1"))
         return view
     }()
-    
-    private let usernameField : FormTextFieldView = {
+
+    private let usernameField: FormTextFieldView = {
         let view = FormTextFieldView()
         view.setPlaceHolderAndIcon(placeHolder: "Username", icon: UIImage(named: "ic_mail_outline_white_2x-1"))
         return view
     }()
-    
-    private let registerButton : AuthButton = {
+
+    private let registerButton: AuthButton = {
         let button = AuthButton(title: "Register")
         button.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
         return button
     }()
-    private let backToLogin : UIButton = {
+    private let backToLogin: UIButton = {
         let button = Utilities().attributedButton("Already have an account? ", "Log In")
         button.addTarget(self, action: #selector(backToLoginTapped), for: .touchUpInside)
         return button
@@ -63,67 +63,84 @@ final class RegisterViewController: UIViewController {
     }
     func configureUI() {
         view.backgroundColor = .twitterBlue
-        
+
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        
+
         view.addSubview(addPhotoButton)
-        addPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor,paddingTop: 32)
+        addPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         addPhotoButton.setDimensions(width: 150, height: 150)
-       
-        let stack : UIStackView = UIStackView(arrangedSubviews: [emailField, passwordField, fullnameField, usernameField, registerButton])
+
+        let stack: UIStackView = UIStackView(arrangedSubviews: [emailField, passwordField, fullnameField, usernameField, registerButton])
         stack.axis = .vertical
         stack.spacing = 20
-        
+
         view.addSubview(stack)
-        stack.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32,paddingRight: 32)
-        
+        stack.anchor(top: addPhotoButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
+
         view.addSubview(backToLogin)
-        backToLogin.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor,paddingBottom: 16)
+        backToLogin.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 16)
     }
-    
+
     @objc func registerTapped() {
-        guard let email = emailField.textField.text else {return}
-        guard let password = passwordField.textField.text else {return}
-        guard let fullname = fullnameField.textField.text else {return}
-        guard let username = usernameField.textField.text else {return}
+        guard let email = emailField.textField.text else { return }
+        guard let password = passwordField.textField.text else { return }
+        guard let fullname = fullnameField.textField.text else { return }
+        guard let username = usernameField.textField.text else { return }
         guard let profileImage = profileImage else {
             print("DEBUG: Profile image is nil")
             return
         }
-        
-        print("DEBUG: Email : \(email) \nPassword: \(password)")
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        let filename = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        storageRef.putData(imageData, metadata: nil) { meta, error in
             if let error = error {
-                print("ERROR: \(error.localizedDescription)")
+                print("DEBUG: \(error.localizedDescription)")
                 return
             }
-            print("DEBUG: User succesfuly created")
-            guard let uid = result?.user.uid else {return}
-            let values = ["email" : email, "username" : username, "fullname" : fullname]
-            let ref =  Database.database().reference().child("users").child(uid)
-            ref.updateChildValues(values) { error, ref in
-                print("DEBUG: Successfully updated user information")
+            storageRef.downloadURL { url, error in
+                if let error = error {
+                    print("DEBUG: \(error.localizedDescription)")
+                    return
+                }
+                guard let profileImageUrl = url?.absoluteString else { return }
+
+                Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                    if let error = error {
+                        print("ERROR: \(error.localizedDescription)")
+                        return
+                    }
+                    print("DEBUG: User succesfuly created")
+                    guard let uid = result?.user.uid else { return }
+                    let values = ["email": email, "username": username, "fullname": fullname, "profileImageUrl": profileImageUrl]
+                    REF_USERS.child(uid).updateChildValues(values) { error, ref in
+                        print("DEBUG: Successfully updated user information")
+                    }
+                }
+
             }
         }
-        
-        
+        print("DEBUG: Email : \(email) \nPassword: \(password)")
+
+
+
     }
-    
+
     @objc func backToLoginTapped() {
         navigationController?.popViewController(animated: true)
     }
 
     @objc func addPhotoTapped() {
         present(imagePicker, animated: true) {
-            
+
         }
     }
 }
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let profileImage = info[.editedImage] as? UIImage else {return}
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else { return }
         self.profileImage = profileImage
         addPhotoButton.layer.cornerRadius = 75
         addPhotoButton.layer.masksToBounds = true
@@ -133,6 +150,6 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         addPhotoButton.layer.borderWidth = 3
         self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true)
-        
+
     }
 }
