@@ -34,6 +34,7 @@
 		FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB329AF7748002DEDC3 /* NotificationsViewController.swift */; };
 		FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */; };
 		FCCE7C5529B35DD800586F0F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE7C5429B35DD700586F0F /* Constants.swift */; };
+		FCCE7C5729B3625900586F0F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE7C5629B3625900586F0F /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		FCC22DB329AF7748002DEDC3 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConservationsViewController.swift; sourceTree = "<group>"; };
 		FCCE7C5429B35DD700586F0F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FCCE7C5629B3625900586F0F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 		FCC22DAB29AF7559002DEDC3 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				FCCE7C5629B3625900586F0F /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				FC2C884D29AFCB6C006C757B /* FormTextFieldView.swift in Sources */,
 				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,
 				FCCE7C5529B35DD800586F0F /* Constants.swift in Sources */,
+				FCCE7C5729B3625900586F0F /* AuthService.swift in Sources */,
 				FC2C884729AFC101006C757B /* LoginViewController.swift in Sources */,
 				FCC22D9129AF74B1002DEDC3 /* SceneDelegate.swift in Sources */,
 			);

@@ -91,37 +91,11 @@ final class RegisterViewController: UIViewController {
             print("DEBUG: Profile image is nil")
             return
         }
-        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
-        let filename = NSUUID().uuidString
-        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
-        storageRef.putData(imageData, metadata: nil) { meta, error in
-            if let error = error {
-                print("DEBUG: \(error.localizedDescription)")
-                return
-            }
-            storageRef.downloadURL { url, error in
-                if let error = error {
-                    print("DEBUG: \(error.localizedDescription)")
-                    return
-                }
-                guard let profileImageUrl = url?.absoluteString else { return }
-
-                Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                    if let error = error {
-                        print("ERROR: \(error.localizedDescription)")
-                        return
-                    }
-                    print("DEBUG: User succesfuly created")
-                    guard let uid = result?.user.uid else { return }
-                    let values = ["email": email, "username": username, "fullname": fullname, "profileImageUrl": profileImageUrl]
-                    REF_USERS.child(uid).updateChildValues(values) { error, ref in
-                        print("DEBUG: Successfully updated user information")
-                    }
-                }
-
-            }
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        AuthService.shared.registerUser(credentials: credentials) { error, reference in
+            print("DEBUG: Sign up succesful...")
+            print("DEBUG: Handle userinterface here")
         }
-        print("DEBUG: Email : \(email) \nPassword: \(password)")
 
 
 
