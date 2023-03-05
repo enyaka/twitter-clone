@@ -9,7 +9,13 @@ import UIKit
 import Firebase
 
 final class MainTabController: UITabBarController {
-    
+    var user : User? {
+        didSet {
+            guard let nav = viewControllers?[0] as? UINavigationController else {return}
+            guard let feed = nav.viewControllers.first as? FeedViewController else {return}
+            feed.user = user
+        }
+    }
     private let actionButton : UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -66,6 +72,12 @@ final class MainTabController: UITabBarController {
         return nav
     }
     
+    func fetchUser() {
+        UserSevice.shared.fetchUser { user in
+            self.user = user
+        }
+    }
+    
     func authenticateUserAndConfigureUI() {
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
@@ -76,6 +88,7 @@ final class MainTabController: UITabBarController {
         } else {
             configureViewControllers()
             configureUI()
+            fetchUser()
         }
     }
     func logUserOut() {
