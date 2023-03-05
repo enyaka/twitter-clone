@@ -8,7 +8,9 @@
 import UIKit
 import SDWebImage
 
-final class FeedViewController: UIViewController {
+private let reuseIdentifier = "TweetCell"
+
+final class FeedViewController: UICollectionViewController {
     var user : User? {
         didSet {
             configureLeftBarButton()
@@ -24,11 +26,16 @@ final class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        fetchTweets()
         // Do any additional setup after loading the view.
     }
     
     func configureUI() {
-        view.backgroundColor = .systemBackground
+        
+        collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .white
+
+        
         profileImageView.setDimensions(width: 32, height: 32)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
         let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
@@ -44,4 +51,27 @@ final class FeedViewController: UIViewController {
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
     }
     
+    func fetchTweets() {
+        TweetService.shared.fetchTweets { tweets in
+
+        }
+    }
+    
+}
+
+extension FeedViewController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        return cell
+    }
+}
+
+extension FeedViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 200)
+    }
 }

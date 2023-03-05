@@ -51,7 +51,7 @@ final class MainTabController: UITabBarController {
             tabBar.standardAppearance = appearance
         }
     
-        let feedTab = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedViewController())
+        let feedTab = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedViewController(collectionViewLayout: UICollectionViewFlowLayout()))
         let exploreTab = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreViewController())
         let notificationsTab = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsViewController())
         let conservationsTab = templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: ConservationsViewController())
