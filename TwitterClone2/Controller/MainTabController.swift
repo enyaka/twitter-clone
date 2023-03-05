@@ -61,13 +61,7 @@ final class MainTabController: UITabBarController {
     
     func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithDefaultBackground()
-        navigationBarAppearance.backgroundColor = .systemBackground
-        nav.navigationBar.standardAppearance = navigationBarAppearance
-        nav.navigationBar.compactAppearance = navigationBarAppearance
-        nav.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
+        nav.setDefaultNavBar()
         nav.tabBarItem.image = image
         return nav
     }
@@ -100,7 +94,13 @@ final class MainTabController: UITabBarController {
     }
     
     @objc func tapped() {
-        print(123)
+        guard let user = user else {return}
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        nav.setDefaultNavBar()
+        present(nav, animated: true)
+        
     }
 
 }

@@ -106,3 +106,14 @@ extension UITextField {
            leftView = container
        }
 }
+
+extension UINavigationController {
+    func setDefaultNavBar() {
+        let apperance = UINavigationBarAppearance()
+        apperance.configureWithDefaultBackground()
+        apperance.backgroundColor = .systemBackground
+        navigationBar.standardAppearance = apperance
+        navigationBar.compactAppearance = apperance
+        navigationBar.scrollEdgeAppearance = apperance
+    }
+}
