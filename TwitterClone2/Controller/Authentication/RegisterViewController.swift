@@ -86,7 +86,7 @@ final class RegisterViewController: UIViewController {
         guard let email = emailField.textField.text else { return }
         guard let password = passwordField.textField.text else { return }
         guard let fullname = fullnameField.textField.text else { return }
-        guard let username = usernameField.textField.text else { return }
+        guard let username = usernameField.textField.text?.lowercased() else { return }
         guard let profileImage = profileImage else {
             print("DEBUG: Profile image is nil")
             return

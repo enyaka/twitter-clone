@@ -8,6 +8,11 @@
 import UIKit
 
 class TweetCell: UICollectionViewCell {
+    var tweet : Tweet? {
+        didSet {
+            configure()
+        }
+    }
     private let profileImageView : UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
@@ -94,10 +99,19 @@ class TweetCell: UICollectionViewCell {
         
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure() {
+        guard let tweet = tweet else {return}
+        let viewmodel = TweetViewModel(tweet: tweet)
+        captionLabel.text = tweet.caption
+        profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
+        infoLabel.attributedText = viewmodel.userInfoText
+        
+    }
     
     @objc func commentTapped() {
         print("dsadas")
