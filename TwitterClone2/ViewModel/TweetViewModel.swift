@@ -11,7 +11,7 @@ struct TweetViewModel {
     let tweet : Tweet
     let user : User
     var profileImageUrl : URL? {
-        return tweet.user.profileImageUrl
+        return user.profileImageUrl
     }
     var timestamp : String {
         let formatter = DateComponentsFormatter()

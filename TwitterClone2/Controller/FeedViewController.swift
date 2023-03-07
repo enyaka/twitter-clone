@@ -21,10 +21,13 @@ final class FeedViewController: UICollectionViewController {
             collectionView.reloadData()
         }
     }
-    private let profileImageView : UIImageView = {
+    private lazy var profileImageView : UIImageView = {
         let profile = UIImageView()
         profile.layer.cornerRadius = 16
         profile.layer.masksToBounds = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        profile.addGestureRecognizer(tap)
+        profile.isUserInteractionEnabled = true
         return profile
     }()
     
@@ -61,6 +64,9 @@ final class FeedViewController: UICollectionViewController {
             self.tweets = tweets
         }
     }
+    @objc func profileImageTapped() {
+        print("DEBUG: GO TO USER PROFILE")
+    }
     
 }
 
@@ -71,6 +77,7 @@ extension FeedViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
     }
@@ -80,4 +87,12 @@ extension FeedViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
     }
+}
+
+extension FeedViewController : TweetCellDelegate {
+    func handleProfileImageTap() {
+        let controller = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }

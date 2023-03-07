@@ -7,18 +7,27 @@
 
 import UIKit
 
+protocol TweetCellDelegate : AnyObject {
+    func handleProfileImageTap()
+}
+
 class TweetCell: UICollectionViewCell {
     var tweet : Tweet? {
         didSet {
             configure()
         }
     }
-    private let profileImageView : UIImageView = {
+    weak var delegate : TweetCellDelegate?
+    
+    private lazy var profileImageView : UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
         image.setDimensions(width: 48, height: 48)
         image.layer.cornerRadius = 48 / 2
         image.backgroundColor = .twitterBlue
+        let tap = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        image.addGestureRecognizer(tap)
+        image.isUserInteractionEnabled = true
         return image
     }()
     
@@ -111,6 +120,10 @@ class TweetCell: UICollectionViewCell {
         profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
         infoLabel.attributedText = viewmodel.userInfoText
         
+    }
+    @objc func profileImageTapped() {
+        print("Profile image tapped on tweet cell")
+        delegate?.handleProfileImageTap()
     }
     
     @objc func commentTapped() {
