@@ -66,6 +66,8 @@ class ProfileHeader : UICollectionReusableView {
         return label
     }()
     
+    private let filterBar = ProfileFilterView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(containerView)
@@ -87,6 +89,9 @@ class ProfileHeader : UICollectionReusableView {
         userDetailStack.spacing = 4
         addSubview(userDetailStack)
         userDetailStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor,paddingTop: 8,paddingLeft: 12,paddingRight: 12)
+        
+        addSubview(filterBar)
+        filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
     }
     
     required init?(coder: NSCoder) {
