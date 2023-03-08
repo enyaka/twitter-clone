@@ -7,7 +7,18 @@
 
 import UIKit
 
-class ProfileHeader : UICollectionReusableView {
+protocol ProfileHeaderDelegate : AnyObject {
+    func dissmisController()
+}
+
+final class ProfileHeader : UICollectionReusableView {
+    weak var delegate : ProfileHeaderDelegate?
+    
+    var user : User? {
+        didSet{
+            configure()
+        }
+    }
     
     private lazy var containerView : UIView = {
        let view = UIView()
@@ -26,8 +37,7 @@ class ProfileHeader : UICollectionReusableView {
     
     private let profileImageView : UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
+        image.layer.masksToBounds = true
         image.backgroundColor = .lightGray
         image.layer.borderColor = UIColor.white.cgColor
         image.layer.borderWidth = 4
@@ -61,8 +71,26 @@ class ProfileHeader : UICollectionReusableView {
     private let bioLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.numberOfLines = 3
+        label.numberOfLines = 2
         label.text = "gmkrflemkalgrklma mklfdkmgla gklmfdklma gklmfdsklmgmkf fkdjsjk fdjks jfkadjkskjnf djnksfnkjg dnjksaknj fdnjksagknjfdjakg jknfdnja n jkdj kndsnkjNFJD NKJSKNJ FKJS KDJNSNjkfnj kldakmgfdkag[;fdk gkmf dalkmglmkfdlkmgfkld lkgflkd nljgfds fknkn"
+        return label
+    }()
+    
+    private let followingLabel : UILabel = {
+        let label = UILabel()
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(followingTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followTap)
+        label.text = "2 Following"
+        return label
+    }()
+    
+    private let followersLabel : UILabel = {
+        let label = UILabel()
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(followersTapped))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(followTap)
+        label.text = "0 Followers"
         return label
     }()
     
@@ -95,7 +123,15 @@ class ProfileHeader : UICollectionReusableView {
         userDetailStack.distribution = .fillProportionally
         userDetailStack.spacing = 4
         addSubview(userDetailStack)
-        userDetailStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor,paddingTop: 8,paddingLeft: 12,paddingRight: 12)
+        userDetailStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 12, paddingRight: 12)
+        
+        let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        followStack.axis = .horizontal
+        followStack.distribution = .fillProportionally
+        followStack.spacing = 8
+        
+        addSubview(followStack)
+        followStack.anchor(top: userDetailStack.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 12)
         
         addSubview(filterBar)
         filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
@@ -106,12 +142,32 @@ class ProfileHeader : UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    @objc func dismissProfile() {
-        
+    
+    func configure() {
+        guard let user = user else {return}
+        let viewModel = ProfileHeaderViewModel(user: user)
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        followingLabel.attributedText = viewModel.followingString
+        followersLabel.attributedText = viewModel.followersString
     }
+    
+    @objc func dismissProfile() {
+        delegate?.dissmisController()
+    }
+    
     @objc func editProfileButtonTapped() {
         print("DEBUG: Edit button tapped")
     }
+    
+    @objc func followingTapped() {
+        
+    }
+    
+    @objc func followersTapped() {
+        
+    }
+    
 }
 
 extension ProfileHeader: ProfileFilterViewDelegate {

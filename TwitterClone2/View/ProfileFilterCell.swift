@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileFilterCell : UICollectionViewCell {
+final class ProfileFilterCell : UICollectionViewCell {
     
     var option : ProfileFilterOptions! {
         didSet {

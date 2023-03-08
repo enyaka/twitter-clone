@@ -37,6 +37,10 @@ final class FeedViewController: UICollectionViewController {
         fetchTweets()
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     
     func configureUI() {
         
@@ -90,9 +94,11 @@ extension FeedViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedViewController : TweetCellDelegate {
-    func handleProfileImageTap() {
-        let controller = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+    func handleProfileImageTap(_ cell: TweetCell) {
+        guard let user = cell.tweet?.user else {return}
+        let controller = ProfileViewController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
+    
     
 }
