@@ -9,6 +9,12 @@ import UIKit
 
 final class UserCell : UITableViewCell {
     
+    var user : User? {
+        didSet {
+            configure()
+        }
+    }
+    
     private let profileImageView : UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
@@ -47,4 +53,12 @@ final class UserCell : UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure() {
+        guard let user = user else {return}
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        usernameLabel.text = user.username
+        fullnameLabel.text = user.fullname
+    }
+
 }
