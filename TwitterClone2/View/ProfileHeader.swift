@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProfileHeaderDelegate : AnyObject {
     func dissmisController()
+    func editProfileFollow(_ header: ProfileHeader)
 }
 
 final class ProfileHeader : UICollectionReusableView {
@@ -44,7 +45,7 @@ final class ProfileHeader : UICollectionReusableView {
         return image
     }()
     
-    private let editProfileFollowButton : UIButton = {
+     let editProfileFollowButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor.twitterBlue.cgColor
@@ -146,6 +147,7 @@ final class ProfileHeader : UICollectionReusableView {
         let viewModel = ProfileHeaderViewModel(user: user)
         profileImageView.sd_setImage(with: user.profileImageUrl)
         editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        
         fullname.text = user.fullname
         username.text = viewModel.usernameText
         followingLabel.attributedText = viewModel.followingString
@@ -157,7 +159,7 @@ final class ProfileHeader : UICollectionReusableView {
     }
     
     @objc func editProfileButtonTapped() {
-        print("DEBUG: Edit button tapped")
+        delegate?.editProfileFollow(self)
     }
     
     @objc func followingTapped() {

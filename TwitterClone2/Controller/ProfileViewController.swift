@@ -11,7 +11,7 @@ private let headerIdentifier = "ProfileHeader"
 
 final class ProfileViewController : UICollectionViewController {
     
-    private let user : User
+    private var user : User
     private var tweets = [Tweet]() {
         didSet {
             collectionView.reloadData()
@@ -30,6 +30,8 @@ final class ProfileViewController : UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        checkIfUserIsFollowed()
+        fetchUserStats()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,6 +56,19 @@ final class ProfileViewController : UICollectionViewController {
         }
     }
     
+    func checkIfUserIsFollowed() {
+        UserSevice.shared.checkIfUserFollowed(uid: user.uid) { isFollowed in
+            self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchUserStats() {
+        UserSevice.shared.fetchUserStats(uid: user.uid) { stats in
+            self.user.stats = stats
+            self.collectionView.reloadData()
+        }
+    }
     
 }
 
@@ -89,6 +104,27 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension ProfileViewController : ProfileHeaderDelegate {
+    
+    func editProfileFollow(_ header: ProfileHeader) {
+        
+        if user.isCurrentUser {
+            print("DEBUG: Show edit profile controller")
+            return
+        }
+        
+        if user.isFollowed {
+            UserSevice.shared.unfollowUser(uid: user.uid) { err, ref in
+                self.user.isFollowed = false
+                self.fetchUserStats()
+            }
+        } else {
+            UserSevice.shared.followUser(uid: user.uid) { err, ref in
+                self.user.isFollowed = true
+                self.fetchUserStats()
+            }
+        }
+    }
+    
     func dissmisController() {
         navigationController?.popViewController(animated: true)
     }
