@@ -91,6 +91,6 @@ extension ExploreViewController {
 extension ExploreViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else {return}
-        filteredUser = users.filter({ $0.username.contains(searchText)})
+        filteredUser = users.filter({ $0.username.localizedCaseInsensitiveContains(searchText) || $0.fullname.localizedCaseInsensitiveContains(searchText)})
     }
 }

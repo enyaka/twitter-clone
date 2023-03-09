@@ -55,7 +55,7 @@ class TweetCell: UICollectionViewCell {
         button.setImage(UIImage(named: "retweet"), for: .normal)
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
-        button.addTarget(self, action: #selector(commentTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(retweetTapped), for: .touchUpInside)
         return button
     }()
     
@@ -64,16 +64,16 @@ class TweetCell: UICollectionViewCell {
         button.setImage(UIImage(named: "like"), for: .normal)
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
-        button.addTarget(self, action: #selector(commentTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var shareButton : UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "comment"), for: .normal)
+        button.setImage(UIImage(named: "share"), for: .normal)
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
-        button.addTarget(self, action: #selector(commentTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(shareTapped), for: .touchUpInside)
         return button
     }()
     
@@ -90,7 +90,6 @@ class TweetCell: UICollectionViewCell {
         addSubview(stack)
         stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 12, paddingRight: 12)
         infoLabel.font = UIFont.systemFont(ofSize: 14)
-        infoLabel.text = "Test test @test"
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
         actionStack.axis = .horizontal
