@@ -9,6 +9,12 @@ import UIKit
 
 final class TweetHeader : UICollectionReusableView {
     
+    var tweet : Tweet? {
+        didSet {
+            configure()
+        }
+    }
+    
     private lazy var profileImageView : UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
@@ -50,25 +56,9 @@ final class TweetHeader : UICollectionReusableView {
         return label
     }()
     
-    private let retweetsLabel : UILabel = {
-        let label = UILabel()
-//        let followTap = UITapGestureRecognizer(target: self, action: #selector(followingTapped))
-//        label.isUserInteractionEnabled = true
-//        label.addGestureRecognizer(followTap)
-        label.text = "2 Retweets"
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
-    }()
+    private let retweetsLabel : UILabel = UILabel()
     
-    private let  likesLabel : UILabel = {
-        let label = UILabel()
-//        let followTap = UITapGestureRecognizer(target: self, action: #selector(followersTapped))
-//        label.isUserInteractionEnabled = true
-//        label.addGestureRecognizer(followTap)
-        label.text = "0 Likes"
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
-    }()
+    private let  likesLabel : UILabel = UILabel()
     
     private lazy var statsView : UIView = {
         let view = UIView()
@@ -156,6 +146,19 @@ final class TweetHeader : UICollectionReusableView {
         addSubview(actionStack)
         actionStack.centerX(inView: self)
         actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        
+    }
+    
+    func configure() {
+        guard let tweet = tweet else {return}
+        let viewmodel = TweetViewModel(tweet: tweet)
+        captionLabel.text = tweet.caption
+        fullname.text = tweet.user.fullname
+        username.text = viewmodel.usernameText
+        profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
+        dateLabel.text = viewmodel.headerTimestamp
+        likesLabel.attributedText = viewmodel.likesAttributedString
+        retweetsLabel.attributedText = viewmodel.retweetsAttributedString
         
     }
     

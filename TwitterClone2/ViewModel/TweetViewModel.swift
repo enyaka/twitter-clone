@@ -21,12 +21,36 @@ struct TweetViewModel {
         let now = Date()
         return formatter.string(from: tweet.timestamp, to: now) ?? "0"
     }
+    var usernameText : String {
+        return "@\(user.username)"
+    }
+    
     var userInfoText : NSAttributedString {
         let title = NSMutableAttributedString(string: user.fullname, attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
         title.append(NSAttributedString(string: " @\(user.username)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor : UIColor.lightGray]))
         title.append(NSAttributedString(string: " · \(timestamp)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor : UIColor.lightGray]))
         
         return title
+    }
+    
+    var headerTimestamp : String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm: a · dd/MM/yyyy"
+        return formatter.string(from: tweet.timestamp)
+    }
+    
+    
+    var retweetsAttributedString: NSAttributedString? {
+        return attributedText(withValue: tweet.retweetCount, text: "Retweets")
+    }
+    var likesAttributedString: NSAttributedString? {
+        return attributedText(withValue: tweet.likes, text: "Likes")
+    }
+    
+    fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributedTitle = NSMutableAttributedString(string: "\(value) ", attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedTitle.append(NSAttributedString(string: "\(text) ", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
+        return attributedTitle
     }
     
     init(tweet: Tweet) {

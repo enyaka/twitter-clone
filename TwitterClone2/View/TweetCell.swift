@@ -11,7 +11,7 @@ protocol TweetCellDelegate : AnyObject {
     func handleProfileImageTap(_ cell : TweetCell)
 }
 
-class TweetCell: UICollectionViewCell {
+final class TweetCell: UICollectionViewCell {
     var tweet : Tweet? {
         didSet {
             configure()
