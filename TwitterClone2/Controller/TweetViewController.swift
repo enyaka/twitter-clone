@@ -13,6 +13,7 @@ private let reuseHeaderIdentifier : String = "TweetHeader"
 
 final class TweetViewController : UICollectionViewController {
     
+    private let actionSheetLauncher : ActionSheetLauncher
     private let tweet : Tweet
     private var replies = [Tweet]() {
         didSet {
@@ -22,6 +23,7 @@ final class TweetViewController : UICollectionViewController {
     
     init(tweet: Tweet) {
         self.tweet = tweet
+        self.actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
     }
@@ -67,6 +69,7 @@ extension TweetViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! TweetHeader
         header.tweet = tweet
+        header.delegate = self
         return header
     }
 }
@@ -92,3 +95,12 @@ extension TweetViewController : UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 120)
     }
 }
+
+extension TweetViewController : TweetHeaderDelegate {
+    func showActionSheet() {
+        actionSheetLauncher.show()
+    }
+    
+    
+}
+
