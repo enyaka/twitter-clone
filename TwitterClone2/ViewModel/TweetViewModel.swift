@@ -57,4 +57,15 @@ struct TweetViewModel {
         self.tweet = tweet
         self.user = tweet.user
     }
+    
+    func size(forWidth width: CGFloat, withFont font: UIFont) -> CGSize {
+        let measurementLabel = UILabel()
+        measurementLabel.text = tweet.caption
+        measurementLabel.numberOfLines = 0
+        measurementLabel.font = font
+        measurementLabel.lineBreakMode = .byWordWrapping
+        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
+        measurementLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
 }
