@@ -39,7 +39,7 @@ final class TweetHeader : UICollectionReusableView {
         return label
     }()
     
-    public let captionLabel : UILabel = {
+    private let captionLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
         label.numberOfLines = 0

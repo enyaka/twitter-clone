@@ -108,6 +108,14 @@ extension FeedViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedViewController : TweetCellDelegate {
+    func handleReplyTap(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else {return}
+        let controller = UploadTweetController(user: tweet.user, config: .retweet(tweet))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
     func handleProfileImageTap(_ cell: TweetCell) {
         guard let user = cell.tweet?.user else {return}
         let controller = ProfileViewController(user: user)

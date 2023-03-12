@@ -61,13 +61,18 @@ extension TweetViewController {
 extension TweetViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let header = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: IndexPath(row: 0, section: section)) as! TweetHeader
-        var size = header.captionLabel.sizeThatFits(CGSize(width: collectionView.frame.width - 40, height: .greatestFiniteMagnitude))
-        size.height += 250
+//        let header = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: IndexPath(row: 0, section: section)) as! TweetHeader
+//        var size = header.captionLabel.sizeThatFits(CGSize(width: collectionView.frame.width - 40, height: .greatestFiniteMagnitude))
+//        size.height += 230
+        
+        let viewModel = TweetViewModel(tweet: tweet)
+        let font = UIFont.systemFont(ofSize: 20)
+        let height = viewModel.size(forWidth: view.frame.width - 32, withFont: font).height
+        return CGSize(width: view.frame.width, height: height + 230)
         
 //        let viewModel = TweetViewModel(tweet: tweet)
 //        let captionHeight = viewModel.size(forWidth: view.frame.width).height
-        return size
+//        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
