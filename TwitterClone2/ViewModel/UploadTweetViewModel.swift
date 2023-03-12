@@ -22,7 +22,7 @@ struct UploadTweetViewModel {
         switch config {
         case .tweet:
             actionButtonTitle = "Tweet"
-            placeholderText = "What's happening"
+            placeholderText = "What's happening?"
             shouldShowReplyLabel = false
         case.retweet(let tweet):
             actionButtonTitle = "Reply"

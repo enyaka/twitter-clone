@@ -112,6 +112,7 @@ extension FeedViewController : TweetCellDelegate {
         guard let tweet = cell.tweet else {return}
         let controller = UploadTweetController(user: tweet.user, config: .retweet(tweet))
         let nav = UINavigationController(rootViewController: controller)
+        nav.setDefaultNavBar()
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
     }
