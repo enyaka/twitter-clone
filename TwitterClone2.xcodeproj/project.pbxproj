@@ -54,6 +54,8 @@
 		FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */; };
 		FCCE7C5529B35DD800586F0F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE7C5429B35DD700586F0F /* Constants.swift */; };
 		FCCE7C5729B3625900586F0F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE7C5629B3625900586F0F /* AuthService.swift */; };
+		FCD08A1929BF165E000FA530 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */; };
+		FCD08A1B29BF2073000FA530 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		FCC22DB529AF7753002DEDC3 /* ConservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConservationsViewController.swift; sourceTree = "<group>"; };
 		FCCE7C5429B35DD700586F0F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FCCE7C5629B3625900586F0F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
+		FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,7 @@
 				FC827B4C29B7466B002B16FD /* ProfileFilterCell.swift */,
 				FC8EC1C529B8B039001380CF /* UserCell.swift */,
 				FC21054D29BA594500DBE1C2 /* TweetHeader.swift */,
+				FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 				FCA36D8F29B61C5D000DC33E /* TweetViewModel.swift */,
 				FC827B4E29B7502B002B16FD /* ProfileHeadeViewModel.swift */,
 				FC8159EB29BDC629004053CA /* UploadTweetViewModel.swift */,
+				FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
 				FC827B4729B732A5002B16FD /* ProfileViewController.swift in Sources */,
 				FCC22DB629AF7753002DEDC3 /* ConservationsViewController.swift in Sources */,
+				FCD08A1929BF165E000FA530 /* ActionSheetCell.swift in Sources */,
 				FC2C884B29AFC7C5006C757B /* Utilities.swift in Sources */,
 				FC39834929B4B56B004FB06A /* User.swift in Sources */,
 				FC39834E29B4D2E9004FB06A /* UploadTweetController.swift in Sources */,
@@ -348,6 +355,7 @@
 				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,
 				FC39835629B512F5004FB06A /* TweetCell.swift in Sources */,
 				FCCE7C5529B35DD800586F0F /* Constants.swift in Sources */,
+				FCD08A1B29BF2073000FA530 /* ActionSheetViewModel.swift in Sources */,
 				FC827B4929B738BA002B16FD /* ProfileHeader.swift in Sources */,
 				FC39834729B4B266004FB06A /* UserService.swift in Sources */,
 				FCCE7C5729B3625900586F0F /* AuthService.swift in Sources */,

@@ -9,11 +9,19 @@ import UIKit
 
 private let reuseIdentifier = "ActionSheetCell"
 
+protocol ActionSheetLauncherDelegate : AnyObject {
+    func didSelect(option: ActionSheetOptions)
+}
+
 final class ActionSheetLauncher: NSObject {
     
     private let user : User
     private let tableView = UITableView()
-    private var UIWindow : UIWindow?
+    private var window : UIWindow?
+    private lazy var viewModel = ActionSheetViewModel(user: user)
+    weak var delegate : ActionSheetLauncherDelegate?
+    private var tableViewHeight: CGFloat?
+    
     private lazy var blackView : UIView = {
         let view = UIView()
         view.alpha = 0
@@ -23,15 +31,33 @@ final class ActionSheetLauncher: NSObject {
         return view
     }()
     
+    private lazy var footerView : UIView = {
+       let view = UIView()
+        view.addSubview(cancelButton)
+        cancelButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        cancelButton.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
+        cancelButton.centerY(inView: view)
+        cancelButton.layer.cornerRadius = 25
+        return view
+    }()
+    
+    private lazy var cancelButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .systemGroupedBackground
+        button.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
+        return button
+    }()
+    
     init(user: User) {
         self.user = user
         super.init()
         configure()
     }
     
-    
     func show() {
-        print("DEBUG: Show action sheet \(user.username)")
         let win = UIApplication
             .shared
             .connectedScenes
@@ -39,23 +65,26 @@ final class ActionSheetLauncher: NSObject {
             .flatMap { $0.windows }
             .first { $0.isKeyWindow }
         guard let window = win else {return}
-        self.UIWindow = window
+        self.window = window
         
         window.addSubview(blackView)
         blackView.frame = window.frame
         
         window.addSubview(tableView)
-        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 300)
+        let height = CGFloat(viewModel.options.count * 60) + 100
+        self.tableViewHeight = height
+        tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
         
+
         UIView.animate(withDuration: 0.25) {
             self.blackView.alpha = 1
-            self.tableView.frame.origin.y -= 300
+            self.showTableView(true)
         }
         
     }
     
     private func configure() {
-        tableView.backgroundColor = .red
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 60
@@ -63,13 +92,20 @@ final class ActionSheetLauncher: NSObject {
         tableView.layer.cornerRadius = 5
         tableView.isScrollEnabled = false
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(ActionSheetCell.self, forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    func showTableView(_ shouldShow: Bool) {
+        guard let window = window else {return}
+        guard let height = tableViewHeight else {return}
+        self.blackView.alpha = shouldShow ? 1 : 0
+        let y = shouldShow ? window.frame.height - height : window.frame.height
+        tableView.frame.origin.y = y
     }
 
     @objc func dismissTapped() {
         UIView.animate(withDuration: 0.25) {
-            self.blackView.alpha = 0
-            self.tableView.frame.origin.y += 300
+            self.showTableView(false)
         }
     }
     
@@ -77,15 +113,33 @@ final class ActionSheetLauncher: NSObject {
 
 extension ActionSheetLauncher : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        viewModel.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ActionSheetCell
+        cell.option = viewModel.options[indexPath.row]
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        footerView
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let option = viewModel.options[indexPath.row]        
+        UIView.animate(withDuration: 0.25) {
+            self.showTableView(false)
+            
+        } completion: { _ in
+            self.delegate?.didSelect(option: option)
+        }
+
+    }
 }
+
 

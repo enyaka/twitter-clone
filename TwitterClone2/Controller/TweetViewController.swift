@@ -13,7 +13,7 @@ private let reuseHeaderIdentifier : String = "TweetHeader"
 
 final class TweetViewController : UICollectionViewController {
     
-    private let actionSheetLauncher : ActionSheetLauncher
+    private var actionSheetLauncher : ActionSheetLauncher!
     private let tweet : Tweet
     private var replies = [Tweet]() {
         didSet {
@@ -23,7 +23,6 @@ final class TweetViewController : UICollectionViewController {
     
     init(tweet: Tweet) {
         self.tweet = tweet
-        self.actionSheetLauncher = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
     }
@@ -52,6 +51,12 @@ final class TweetViewController : UICollectionViewController {
         TweetService.shared.fetchReplies(forTweet: tweet) { replies in
             self.replies = replies
         }
+    }
+    
+    fileprivate func showActionSheet(forUser user: User) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
     }
 }
 
@@ -97,10 +102,39 @@ extension TweetViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension TweetViewController : TweetHeaderDelegate {
+    
+    
     func showActionSheet() {
-        actionSheetLauncher.show()
+        if tweet.user.isCurrentUser {
+            showActionSheet(forUser: tweet.user)
+        } else {
+            UserSevice.shared.checkIfUserFollowed(uid: tweet.user.uid) { isFollowed in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(forUser: user)
+            }
+        }
     }
-    
-    
 }
 
+extension TweetViewController : ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        switch option {
+        case .follow(let user):
+            UserSevice.shared.followUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did follow user -> \(user.fullname)")
+            }
+        case .unfollow(let user):
+            UserSevice.shared.unfollowUser(uid: user.uid) { err, ref in
+                print("DEBUG: Did unfollow user -> \(user.fullname)")
+            }
+        case .report:
+            print("DEBUG: Reported")
+
+        case .delete:
+            print("DEBUG: deleted")
+        case .block:
+            print("DEBUG: Blocked")
+        }
+    }    
+}
