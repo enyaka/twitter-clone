@@ -10,6 +10,7 @@ import UIKit
 protocol TweetCellDelegate : AnyObject {
     func handleProfileImageTap(_ cell : TweetCell)
     func handleReplyTap(_ cell : TweetCell)
+    func handleLikeTap(_ cell : TweetCell)
 }
 
 final class TweetCell: UICollectionViewCell {
@@ -136,7 +137,7 @@ final class TweetCell: UICollectionViewCell {
     }
     
     @objc func likeTapped() {
-        print("dsadas")
+        delegate?.handleLikeTap(self)
 
     }
     

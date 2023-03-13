@@ -108,6 +108,16 @@ extension FeedViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedViewController : TweetCellDelegate {
+    func handleLikeTap(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else {return}
+        TweetService.shared.likeTweet(tweet: tweet) { err, ref in
+            cell.tweet?.didLike.toggle()
+            let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
+            cell.tweet?.likes = likes
+        }
+        
+    }
+    
     func handleReplyTap(_ cell: TweetCell) {
         guard let tweet = cell.tweet else {return}
         let controller = UploadTweetController(user: tweet.user, config: .retweet(tweet))
