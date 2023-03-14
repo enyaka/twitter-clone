@@ -56,6 +56,8 @@
 		FCCE7C5729B3625900586F0F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCE7C5629B3625900586F0F /* AuthService.swift */; };
 		FCD08A1929BF165E000FA530 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */; };
 		FCD08A1B29BF2073000FA530 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */; };
+		FCD08A1D29C079E5000FA530 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1C29C079E5000FA530 /* Notification.swift */; };
+		FCD08A1F29C07C3C000FA530 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1E29C07C3C000FA530 /* NotificationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		FCCE7C5629B3625900586F0F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
 		FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
+		FCD08A1C29C079E5000FA530 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		FCD08A1E29C07C3C000FA530 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 			children = (
 				FC39834829B4B56B004FB06A /* User.swift */,
 				FC39835329B50E13004FB06A /* Tweet.swift */,
+				FCD08A1C29C079E5000FA530 /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				FCCE7C5629B3625900586F0F /* AuthService.swift */,
 				FC39834629B4B266004FB06A /* UserService.swift */,
 				FC39835129B4E37C004FB06A /* TweetService.swift */,
+				FCD08A1E29C07C3C000FA530 /* NotificationService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 				FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */,
 				FC8159EE29BE072A004053CA /* ActionSheetLauncher.swift in Sources */,
 				FC39835429B50E13004FB06A /* Tweet.swift in Sources */,
+				FCD08A1F29C07C3C000FA530 /* NotificationService.swift in Sources */,
 				FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */,
 				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
 				FC827B4729B732A5002B16FD /* ProfileViewController.swift in Sources */,
@@ -350,6 +357,7 @@
 				FC8159EC29BDC629004053CA /* UploadTweetViewModel.swift in Sources */,
 				FCC22DAE29AF75B2002DEDC3 /* MainTabController.swift in Sources */,
 				FC39835029B4DEDD004FB06A /* CaptionTextView.swift in Sources */,
+				FCD08A1D29C079E5000FA530 /* Notification.swift in Sources */,
 				FC2C884D29AFCB6C006C757B /* FormTextFieldView.swift in Sources */,
 				FC8EC1C629B8B039001380CF /* UserCell.swift in Sources */,
 				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,

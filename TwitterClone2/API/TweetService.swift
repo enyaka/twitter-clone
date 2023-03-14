@@ -25,7 +25,7 @@ struct TweetService {
                 guard let tweetID = ref.key else {return}
                 REF_USER_TWEETS.child(uid).updateChildValues([tweetID: 1], withCompletionBlock: completion)
             }
-        case .retweet(let tweet):
+        case .reply(let tweet):
             REF_TWEET_REPLIES.child(tweet.tweetID).childByAutoId().updateChildValues(values, withCompletionBlock: completion)
         }
         

@@ -164,6 +164,8 @@ final class TweetHeader : UICollectionReusableView {
         profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
         dateLabel.text = viewmodel.headerTimestamp
         likesLabel.attributedText = viewmodel.likesAttributedString
+        likeButton.setImage(viewmodel.likeButtonImage, for: .normal)
+        likeButton.tintColor = viewmodel.likeButtonTintColor
         retweetsLabel.attributedText = viewmodel.retweetsAttributedString
         
     }

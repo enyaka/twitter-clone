@@ -63,7 +63,7 @@ final class UploadTweetController : UIViewController {
         switch config {
         case .tweet:
             print("DEBUG: Config is tweet")
-        case .retweet(let tweet):
+        case .reply(let tweet):
             print("DEBUG: Config is replying")
 
         }
@@ -118,6 +118,11 @@ final class UploadTweetController : UIViewController {
                 print("DEBUG: Failed to upload tweet -> \(error.localizedDescription)")
                 return
             }
+            
+            if case .reply(let tweet) = self.config {
+                NotificationService.shared.uploadNotification(type: .reply, tweet: tweet)
+            }
+            
             self.dismiss(animated: true)
         }
     }

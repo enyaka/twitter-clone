@@ -122,6 +122,7 @@ final class TweetCell: UICollectionViewCell {
         profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
         infoLabel.attributedText = viewmodel.userInfoText
         likeButton.tintColor = viewmodel.likeButtonTintColor
+        
         likeButton.setImage(viewmodel.likeButtonImage, for: .normal)
         
     }
