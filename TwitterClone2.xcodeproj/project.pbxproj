@@ -58,6 +58,8 @@
 		FCD08A1B29BF2073000FA530 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */; };
 		FCD08A1D29C079E5000FA530 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1C29C079E5000FA530 /* Notification.swift */; };
 		FCD08A1F29C07C3C000FA530 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A1E29C07C3C000FA530 /* NotificationService.swift */; };
+		FCD08A2129C0AC3B000FA530 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A2029C0AC3B000FA530 /* NotificationCell.swift */; };
+		FCD08A2329C0B481000FA530 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD08A2229C0B481000FA530 /* NotificationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 		FCD08A1C29C079E5000FA530 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		FCD08A1E29C07C3C000FA530 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		FCD08A2029C0AC3B000FA530 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		FCD08A2229C0B481000FA530 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,7 @@
 				FC8EC1C529B8B039001380CF /* UserCell.swift */,
 				FC21054D29BA594500DBE1C2 /* TweetHeader.swift */,
 				FCD08A1829BF165E000FA530 /* ActionSheetCell.swift */,
+				FCD08A2029C0AC3B000FA530 /* NotificationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				FC827B4E29B7502B002B16FD /* ProfileHeadeViewModel.swift */,
 				FC8159EB29BDC629004053CA /* UploadTweetViewModel.swift */,
 				FCD08A1A29BF2073000FA530 /* ActionSheetViewModel.swift */,
+				FCD08A2229C0B481000FA530 /* NotificationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -338,6 +344,7 @@
 			files = (
 				FC821E6B29AFED1000D2A92C /* AuthButton.swift in Sources */,
 				FC21054E29BA594500DBE1C2 /* TweetHeader.swift in Sources */,
+				FCD08A2329C0B481000FA530 /* NotificationViewModel.swift in Sources */,
 				FC2C884929AFC109006C757B /* RegisterViewController.swift in Sources */,
 				FC21054C29BA56D900DBE1C2 /* TweetViewController.swift in Sources */,
 				FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */,
@@ -362,6 +369,7 @@
 				FC8EC1C629B8B039001380CF /* UserCell.swift in Sources */,
 				FCC22DB429AF7748002DEDC3 /* NotificationsViewController.swift in Sources */,
 				FC39835629B512F5004FB06A /* TweetCell.swift in Sources */,
+				FCD08A2129C0AC3B000FA530 /* NotificationCell.swift in Sources */,
 				FCCE7C5529B35DD800586F0F /* Constants.swift in Sources */,
 				FCD08A1B29BF2073000FA530 /* ActionSheetViewModel.swift in Sources */,
 				FC827B4929B738BA002B16FD /* ProfileHeader.swift in Sources */,

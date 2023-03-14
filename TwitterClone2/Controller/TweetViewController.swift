@@ -130,7 +130,6 @@ extension TweetViewController : ActionSheetLauncherDelegate {
             }
         case .report:
             print("DEBUG: Reported")
-
         case .delete:
             print("DEBUG: deleted")
         case .block:

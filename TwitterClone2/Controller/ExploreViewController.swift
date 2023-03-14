@@ -12,15 +12,11 @@ private let reuseIdentifier = "UserCell"
 final class ExploreViewController: UITableViewController {
     
     private var users = [User]() {
-        didSet {
-            tableView.reloadData()
-        }
+        didSet { tableView.reloadData() }
     }
     
     private var filteredUser = [User]() {
-        didSet {
-            tableView.reloadData()
-        }
+        didSet { tableView.reloadData() }
     }
     
     private var inSearchMode : Bool {
@@ -34,8 +30,6 @@ final class ExploreViewController: UITableViewController {
         configureUI()
         fetchUsers()
         configureSearchController()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
