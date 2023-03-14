@@ -121,6 +121,8 @@ final class TweetCell: UICollectionViewCell {
         captionLabel.text = tweet.caption
         profileImageView.sd_setImage(with: viewmodel.profileImageUrl)
         infoLabel.attributedText = viewmodel.userInfoText
+        likeButton.tintColor = viewmodel.likeButtonTintColor
+        likeButton.setImage(viewmodel.likeButtonImage, for: .normal)
         
     }
     @objc func profileImageTapped() {
