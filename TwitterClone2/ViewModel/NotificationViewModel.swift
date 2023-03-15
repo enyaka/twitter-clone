@@ -31,6 +31,14 @@ struct NotificationViewModel {
         }
     }
     
+    var shouldHideFollowButton : Bool {
+        return type != .follow
+    }
+    
+    var followButtonText : String {
+        return user.isFollowed ? "Following" : "Follow"
+    }
+    
     var notificationText : NSAttributedString {
         let attributedText = NSMutableAttributedString(string: "\(user.fullname) ", attributes: [.font: UIFont.boldSystemFont(ofSize: 12)])
         

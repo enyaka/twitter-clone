@@ -17,14 +17,15 @@ enum NotificationType : Int {
 
 struct Notification {
     var timestamp : Date!
-    let user: User
-    let tweetID: String?
+    var user: User
+    var tweetID: String?
     var type: NotificationType!
     
     init(user: User, dictionary: [String: AnyObject]) {
         self.user = user
-        self.tweetID = dictionary["uid"] as? String ?? ""
-        
+        if let tweetID = dictionary["tweetID"] as? String {
+            self.tweetID = tweetID
+        }
         if let timestamp = dictionary["timestamp"] as? Double {
             self.timestamp = Date(timeIntervalSince1970: timestamp)
         }
