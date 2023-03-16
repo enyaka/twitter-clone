@@ -84,7 +84,7 @@ extension NotificationsViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let notification = notifications[indexPath.row]
-        guard let tweetID = notification.tweetID else {return}
+        guard let tweetID = notification.tweetID else {pressed = false; return}
         if !pressed {
             pressed = true
             TweetService.shared.fetchTweet(withTweetID: tweetID) { tweet in

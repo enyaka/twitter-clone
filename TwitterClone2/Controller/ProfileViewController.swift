@@ -12,11 +12,24 @@ private let headerIdentifier = "ProfileHeader"
 final class ProfileViewController : UICollectionViewController {
     
     private var user : User
-    private var tweets = [Tweet]() {
-        didSet {
-            collectionView.reloadData()
+    private var selectedType : ProfileFilterOptions = .tweets {
+        didSet { collectionView.reloadData() }
+    }
+    
+    private var tweets = [Tweet]()
+    
+    private var likedTweets = [Tweet]()
+    
+    private var replies = [Tweet]()
+    
+    private var currentDataSource : [Tweet] {
+        switch selectedType {
+        case .tweets: return tweets
+        case .replies: return replies
+        case .likes: return likedTweets
         }
     }
+    
     init(user: User) {
         self.user = user
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -53,6 +66,7 @@ final class ProfileViewController : UICollectionViewController {
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
+            self.collectionView.reloadData()
         }
     }
     
@@ -73,12 +87,12 @@ final class ProfileViewController : UICollectionViewController {
 
 extension ProfileViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        return currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
+        cell.tweet = currentDataSource[indexPath.row]
         return cell
     }
 }
@@ -98,7 +112,7 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let viewModel = TweetViewModel(tweet: tweets[indexPath.row])
+        let viewModel = TweetViewModel(tweet: currentDataSource[indexPath.row])
         let font = UIFont.systemFont(ofSize: 14)
         let height = viewModel.size(forWidth: view.frame.width - 90, withFont: font).height
         return CGSize(width: view.frame.width, height: height + 90)
