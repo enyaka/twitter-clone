@@ -10,7 +10,7 @@ import UIKit
 private let filterIdentifier = "ProfileFilterCell"
 
 protocol ProfileFilterViewDelegate : AnyObject {
-    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath)
+    func filterView(didSelectOption option: ProfileFilterOptions)
 }
 
 final class ProfileFilterView : UIView {
@@ -77,7 +77,8 @@ extension ProfileFilterView : UICollectionViewDelegate {
         UIView.animate(withDuration: 0.3) {
             self.underLineView.frame.origin.x = xPosition
         }
-        delegate?.filterView(self, didSelect: indexPath)
+        guard let option = ProfileFilterOptions(rawValue: indexPath.row) else {return}
+        delegate?.filterView(didSelectOption: option)
     }
 }
 

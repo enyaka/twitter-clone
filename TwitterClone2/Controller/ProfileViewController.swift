@@ -43,6 +43,8 @@ final class ProfileViewController : UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchTweets()
+        fetchReplies()
+        fethLikedTweets()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -61,12 +63,14 @@ final class ProfileViewController : UICollectionViewController {
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         
+        guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
+        collectionView.contentInset.bottom = tabHeight
+        
     }
     
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
-            self.collectionView.reloadData()
         }
     }
     
@@ -80,6 +84,17 @@ final class ProfileViewController : UICollectionViewController {
         UserSevice.shared.fetchUserStats(uid: user.uid) { stats in
             self.user.stats = stats
             self.collectionView.reloadData()
+        }
+    }
+    func fethLikedTweets() {
+        TweetService.shared.fetchLikes(forUser: user) { tweets in
+            self.likedTweets = tweets
+        }
+    }
+    func fetchReplies() {
+        TweetService.shared.fetchReplies(forUser: user) { tweets in
+            self.replies = tweets
+            
         }
     }
     
@@ -120,19 +135,19 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension ProfileViewController : ProfileHeaderDelegate {
+    func didSelectFilter(filter: ProfileFilterOptions) {
+        self.selectedType = filter
+    }
     
     func editProfileFollow(_ header: ProfileHeader) {
-        
         if user.isCurrentUser {
             print("DEBUG: Show edit profile controller")
             return
         }
-        
         if user.isFollowed {
             UserSevice.shared.unfollowUser(uid: user.uid) { err, ref in
                 self.user.isFollowed = false
                 self.fetchUserStats()
-                
             }
         } else {
             UserSevice.shared.followUser(uid: user.uid) { err, ref in
