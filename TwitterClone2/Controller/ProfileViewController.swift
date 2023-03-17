@@ -119,6 +119,11 @@ extension ProfileViewController {
         header.user = user
         return header
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tweetView = TweetViewController(tweet: currentDataSource[indexPath.row])
+        navigationController?.pushViewController(tweetView, animated: true)
+    }
 }
 
 extension ProfileViewController : UICollectionViewDelegateFlowLayout {
@@ -129,8 +134,12 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let viewModel = TweetViewModel(tweet: currentDataSource[indexPath.row])
         let font = UIFont.systemFont(ofSize: 14)
-        let height = viewModel.size(forWidth: view.frame.width - 90, withFont: font).height
-        return CGSize(width: view.frame.width, height: height + 90)
+        var height = viewModel.size(forWidth: view.frame.width - 90, withFont: font).height + 90
+        
+        if currentDataSource[indexPath.row].replyingTo != nil {
+            height += 20
+        }
+        return CGSize(width: view.frame.width, height: height)
     }
 }
 

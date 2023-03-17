@@ -30,7 +30,6 @@ struct NotificationService {
         REF_NOTIFICATIONS.child(uid).observe(.childAdded) { snap in
             guard let dictionary = snap.value as? [String: AnyObject] else {return}
             guard let tweetUid = dictionary["uid"] as? String else {return}
-            
             UserSevice.shared.fetchUser(uid: tweetUid) { user in
                 let notification = Notification(user: user, dictionary: dictionary)
                 notifications.append(notification)

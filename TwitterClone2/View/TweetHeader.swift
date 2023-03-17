@@ -32,6 +32,12 @@ final class TweetHeader : UICollectionReusableView {
         image.isUserInteractionEnabled = true
         return image
     }()
+    private let replyLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
     
     private let fullname : UILabel = {
         let label = UILabel()
@@ -132,17 +138,24 @@ final class TweetHeader : UICollectionReusableView {
         let labelStack = UIStackView(arrangedSubviews: [fullname, username])
         labelStack.axis = .vertical
         labelStack.spacing = -6
-        let stack = UIStackView(arrangedSubviews: [profileImageView, labelStack])
-        stack.spacing = 12
-        username.text = "Dummy text"
-        fullname.text = "Dummy text"
+        
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, labelStack])
+        imageCaptionStack.spacing = 12
+        
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
+        
         addSubview(stack)
         stack.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 16)
         addSubview(optionsButton)
         optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
+        
         addSubview(captionLabel)
         captionLabel.anchor(top: stack.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20,paddingLeft: 16,paddingRight: 16)
+        
         addSubview(dateLabel)
         dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 20, paddingLeft: 16)
         addSubview(statsView)
@@ -157,7 +170,10 @@ final class TweetHeader : UICollectionReusableView {
     
     func configure() {
         guard let tweet = tweet else {return}
+
         let viewmodel = TweetViewModel(tweet: tweet)
+        replyLabel.isHidden = viewmodel.isReply
+        replyLabel.text = viewmodel.replyText
         captionLabel.text = tweet.caption
         fullname.text = tweet.user.fullname
         username.text = viewmodel.usernameText

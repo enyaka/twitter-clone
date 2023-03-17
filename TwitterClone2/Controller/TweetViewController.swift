@@ -35,7 +35,11 @@ final class TweetViewController : UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         fetchReplies()
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isHidden = false
     }
     
     func configureCollectionView() {

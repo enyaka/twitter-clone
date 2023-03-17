@@ -10,6 +10,7 @@ import UIKit
 struct TweetViewModel {
     let tweet : Tweet
     let user : User
+    
     var profileImageUrl : URL? {
         return user.profileImageUrl
     }
@@ -23,6 +24,10 @@ struct TweetViewModel {
     }
     var usernameText : String {
         return "@\(user.username)"
+    }
+    
+    var isReply : Bool {
+        return tweet.replyingTo == nil
     }
     
     var userInfoText : NSAttributedString {
@@ -53,6 +58,10 @@ struct TweetViewModel {
     var likeButtonImage: UIImage {
         let imageName = tweet.didLike ? "like_filled" : "like"
         return UIImage(named: imageName)!
+    }
+    var replyText: String? {
+        guard let replyingToUsername = tweet.replyingTo else {return nil}
+        return "-> replying to @\(replyingToUsername)"
     }
     
     fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
