@@ -70,6 +70,7 @@ final class EditProfileCell : UITableViewCell {
         titleLabel.text = viewModel.titleText
         infoTextField.text = viewModel.optionValue
         bioTextView.text = viewModel.optionValue
+        bioTextView.placeholderLabel.isHidden = viewModel.shouldHideBioPlaceholder
     }
     
     @objc func handleUpdateUserInfo() {

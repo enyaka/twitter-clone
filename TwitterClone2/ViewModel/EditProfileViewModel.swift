@@ -37,6 +37,9 @@ struct EditProfileViewModel {
     var titleText : String {
         return option.descripton
     }
+    var shouldHideBioPlaceholder : Bool {
+        return user.bio != nil
+    }
     
     var optionValue : String? {
         switch option {

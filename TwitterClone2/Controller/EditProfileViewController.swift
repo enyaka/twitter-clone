@@ -19,6 +19,9 @@ final class EditProfileViewController : UITableViewController {
     private lazy var headerView = EditProfileHeader(user: user)
     private let imagePicker = UIImagePickerController()
     private var isUserChanged : Bool = false
+    private var imageChanged: Bool {
+        return selectedImage != nil
+    }
     weak var delegate: EditProfileViewControllerDelegate?
     private var selectedImage : UIImage? {
         didSet { headerView.profileImageView.image = selectedImage}
@@ -51,7 +54,6 @@ final class EditProfileViewController : UITableViewController {
         navigationItem.title = "Edit Profile"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func configureTableView() {
@@ -68,7 +70,26 @@ final class EditProfileViewController : UITableViewController {
     }
     
     func updateUserData() {
-        UserSevice.shared.saveUserData(user: user) { err, ref in
+        if imageChanged && !isUserChanged{
+            updateProfileImage()
+        }
+        
+        if isUserChanged && !imageChanged {
+            UserSevice.shared.saveUserData(user: user) { err, ref in
+                self.delegate?.controller(self, wantsToUpdate: self.user)
+            }
+        }
+        if isUserChanged && imageChanged{
+            UserSevice.shared.saveUserData(user: user) { err, ref in
+                self.updateProfileImage()
+            }
+        }
+        
+    }
+    func updateProfileImage() {
+        guard let image = selectedImage else {return}
+        UserSevice.shared.updateProfileImage(image: image) { url in
+            self.user.profileImageUrl = url
             self.delegate?.controller(self, wantsToUpdate: self.user)
         }
     }
@@ -78,6 +99,8 @@ final class EditProfileViewController : UITableViewController {
     }
     
     @objc func handleDone() {
+        view.endEditing(true)
+        guard imageChanged || isUserChanged else {return}
         updateUserData()
     }
  
