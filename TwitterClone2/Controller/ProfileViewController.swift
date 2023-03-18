@@ -71,6 +71,7 @@ final class ProfileViewController : UICollectionViewController {
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
+            self.collectionView.reloadData()
         }
     }
     
@@ -152,6 +153,7 @@ extension ProfileViewController : ProfileHeaderDelegate {
         if user.isCurrentUser {
             let controller = EditProfileViewController(user: user)
             let nav = UINavigationController(rootViewController: controller)
+            controller.delegate = self
             nav.modalPresentationStyle = .fullScreen
             nav.setDefaultNavBar(backgroundColor: .twitterBlue)
             present(nav, animated: true)
@@ -174,6 +176,12 @@ extension ProfileViewController : ProfileHeaderDelegate {
     func dissmisController() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
+}
+
+extension ProfileViewController: EditProfileViewControllerDelegate {
+    func controller(_ controller: EditProfileViewController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true)
+        self.user = user
+        self.collectionView.reloadData()
+    }
 }

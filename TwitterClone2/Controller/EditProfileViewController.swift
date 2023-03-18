@@ -9,12 +9,20 @@ import UIKit
 
 private let reuseIdentifier = "EditProfileCell"
 
-final class EditProfileViewController : UITableViewController {
-    
+protocol EditProfileViewControllerDelegate : AnyObject {
+    func controller(_ controller: EditProfileViewController, wantsToUpdate user: User)
+}
 
-    
-    private let user: User
+final class EditProfileViewController : UITableViewController {
+
+    private var user: User
     private lazy var headerView = EditProfileHeader(user: user)
+    private let imagePicker = UIImagePickerController()
+    private var isUserChanged : Bool = false
+    weak var delegate: EditProfileViewControllerDelegate?
+    private var selectedImage : UIImage? {
+        didSet { headerView.profileImageView.image = selectedImage}
+    }
     
     init(user: User) {
         self.user = user
@@ -30,6 +38,7 @@ final class EditProfileViewController : UITableViewController {
         super.viewDidLoad()
         configureNavBar()
         configureTableView()
+        configureImagePicker()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +51,7 @@ final class EditProfileViewController : UITableViewController {
         navigationItem.title = "Edit Profile"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func configureTableView() {
@@ -52,19 +62,30 @@ final class EditProfileViewController : UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
+    func configureImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    }
+    
+    func updateUserData() {
+        UserSevice.shared.saveUserData(user: user) { err, ref in
+            self.delegate?.controller(self, wantsToUpdate: self.user)
+        }
+    }
+    
     @objc func handleCancel() {
         dismiss(animated: true)
     }
     
     @objc func handleDone() {
-        print("Hadnle done")
+        updateUserData()
     }
  
 }
 
 extension EditProfileViewController: EditProfileHeaderDelegate {
     func didTapChangeProfilePhoto() {
-        
+        present(imagePicker, animated: true)
     }
 }
 
@@ -76,6 +97,7 @@ extension EditProfileViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
         guard let option = EditProfileOptions(rawValue: indexPath.row) else {return cell}
+        cell.delegate = self
         cell.viewModel = EditProfileViewModel(user: user, option: option)
         return cell
     }
@@ -84,4 +106,32 @@ extension EditProfileViewController {
         guard let option = EditProfileOptions(rawValue: indexPath.row) else {return 0}
         return option == .bio ? 100 : 48
     }
+}
+
+extension EditProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else {return}
+        self.selectedImage = image
+        dismiss(animated: true)
+    }
+    
+}
+extension EditProfileViewController: EditProfileCellDelegate {
+    func updateUserInfo(_ cell: EditProfileCell) {
+        guard let viewModel = cell.viewModel else {return}
+        isUserChanged = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        switch viewModel.option {
+        case .fullname:
+            guard let value = cell.infoTextField.text else { return }
+            user.fullname = value
+        case .username:
+            guard let value = cell.infoTextField.text else { return }
+            user.username = value
+        case .bio:
+            user.bio = cell.bioTextView.text
+        }
+    }
+    
+    
 }

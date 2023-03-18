@@ -17,7 +17,7 @@ final class EditProfileHeader : UIView {
     
     weak var delegate : EditProfileHeaderDelegate?
     
-    private let profileImageView : UIImageView = {
+     let profileImageView : UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
         image.backgroundColor = .lightGray

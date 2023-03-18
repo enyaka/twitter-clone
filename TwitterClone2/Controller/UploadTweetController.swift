@@ -73,7 +73,7 @@ final class UploadTweetController : UIViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavBar()
-        
+        captionTextView.heightAnchor.constraint(equalToConstant: view.frame.height).isActive = true
         let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         imageCaptionStack.axis = .horizontal
         imageCaptionStack.spacing = 12
