@@ -150,7 +150,11 @@ extension ProfileViewController : ProfileHeaderDelegate {
     
     func editProfileFollow(_ header: ProfileHeader) {
         if user.isCurrentUser {
-            print("DEBUG: Show edit profile controller")
+            let controller = EditProfileViewController(user: user)
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            nav.setDefaultNavBar(backgroundColor: .twitterBlue)
+            present(nav, animated: true)
             return
         }
         if user.isFollowed {

@@ -108,10 +108,10 @@ extension UITextField {
 }
 
 extension UINavigationController {
-    func setDefaultNavBar() {
+    func setDefaultNavBar(backgroundColor: UIColor = .systemBackground) {
         let apperance = UINavigationBarAppearance()
         apperance.configureWithDefaultBackground()
-        apperance.backgroundColor = .systemBackground
+        apperance.backgroundColor = backgroundColor
         navigationBar.standardAppearance = apperance
         navigationBar.compactAppearance = apperance
         navigationBar.scrollEdgeAppearance = apperance

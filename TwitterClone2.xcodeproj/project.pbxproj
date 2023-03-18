@@ -40,6 +40,7 @@
 		FC827B4B29B744B4002B16FD /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC827B4A29B744B4002B16FD /* ProfileFilterView.swift */; };
 		FC827B4D29B7466B002B16FD /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC827B4C29B7466B002B16FD /* ProfileFilterCell.swift */; };
 		FC827B4F29B7502B002B16FD /* ProfileHeadeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC827B4E29B7502B002B16FD /* ProfileHeadeViewModel.swift */; };
+		FC88D11029C5D82B008D17D4 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC88D10F29C5D82B008D17D4 /* EditProfileViewController.swift */; };
 		FC8EC1C629B8B039001380CF /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8EC1C529B8B039001380CF /* UserCell.swift */; };
 		FCA36D9029B61C5D000DC33E /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA36D8F29B61C5D000DC33E /* TweetViewModel.swift */; };
 		FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC22D8E29AF74B1002DEDC3 /* AppDelegate.swift */; };
@@ -86,6 +87,7 @@
 		FC827B4A29B744B4002B16FD /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		FC827B4C29B7466B002B16FD /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
 		FC827B4E29B7502B002B16FD /* ProfileHeadeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeadeViewModel.swift; sourceTree = "<group>"; };
+		FC88D10F29C5D82B008D17D4 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		FC8EC1C529B8B039001380CF /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		FCA36D8F29B61C5D000DC33E /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		FCC22D8B29AF74B1002DEDC3 /* TwitterClone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +230,7 @@
 				FC39834D29B4D2E9004FB06A /* UploadTweetController.swift */,
 				FC827B4629B732A5002B16FD /* ProfileViewController.swift */,
 				FC21054B29BA56D800DBE1C2 /* TweetViewController.swift */,
+				FC88D10F29C5D82B008D17D4 /* EditProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				FC2C884429AFBDF1006C757B /* Extensions.swift in Sources */,
 				FC8159EE29BE072A004053CA /* ActionSheetLauncher.swift in Sources */,
 				FC39835429B50E13004FB06A /* Tweet.swift in Sources */,
+				FC88D11029C5D82B008D17D4 /* EditProfileViewController.swift in Sources */,
 				FCD08A1F29C07C3C000FA530 /* NotificationService.swift in Sources */,
 				FCC22D8F29AF74B1002DEDC3 /* AppDelegate.swift in Sources */,
 				FCC22DB229AF7735002DEDC3 /* ExploreViewController.swift in Sources */,
@@ -533,6 +537,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -561,6 +567,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
