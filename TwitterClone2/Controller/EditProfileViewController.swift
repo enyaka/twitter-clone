@@ -7,9 +7,14 @@
 
 import UIKit
 
+private let reuseIdentifier = "EditProfileCell"
+
 final class EditProfileViewController : UITableViewController {
     
+
+    
     private let user: User
+    private lazy var headerView = EditProfileHeader(user: user)
     
     init(user: User) {
         self.user = user
@@ -24,6 +29,7 @@ final class EditProfileViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +44,14 @@ final class EditProfileViewController : UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
     }
     
+    func configureTableView() {
+        headerView.delegate = self
+        tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.tableHeaderView = headerView 
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
+        tableView.tableFooterView = UIView()
+    }
+    
     @objc func handleCancel() {
         dismiss(animated: true)
     }
@@ -46,4 +60,28 @@ final class EditProfileViewController : UITableViewController {
         print("Hadnle done")
     }
  
+}
+
+extension EditProfileViewController: EditProfileHeaderDelegate {
+    func didTapChangeProfilePhoto() {
+        
+    }
+}
+
+extension EditProfileViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        EditProfileOptions.allCases.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
+        guard let option = EditProfileOptions(rawValue: indexPath.row) else {return cell}
+        cell.viewModel = EditProfileViewModel(user: user, option: option)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let option = EditProfileOptions(rawValue: indexPath.row) else {return 0}
+        return option == .bio ? 100 : 48
+    }
 }

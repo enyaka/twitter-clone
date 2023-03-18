@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CaptionTextView : UITextView {
+final class InputTextView : UITextView {
     
     let placeholderLabel : UILabel = {
         let label = UILabel()
