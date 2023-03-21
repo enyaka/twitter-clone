@@ -129,7 +129,12 @@ extension ProfileViewController {
 
 extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350)
+        var height: CGFloat = 300
+        if  user.bio != "" {
+            height += 50
+            
+        }
+        return CGSize(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -168,7 +173,7 @@ extension ProfileViewController : ProfileHeaderDelegate {
             UserSevice.shared.followUser(uid: user.uid) { err, ref in
                 self.user.isFollowed = true
                 self.fetchUserStats()
-                NotificationService.shared.uploadNotification(type: .follow, user: self.user)
+                NotificationService.shared.uploadNotification(toUser: self.user, type: .follow)
             }
         }
     }

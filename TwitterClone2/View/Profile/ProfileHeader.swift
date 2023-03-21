@@ -72,7 +72,6 @@ final class ProfileHeader : UICollectionReusableView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 2
-        label.text = "gmkrflemkalgrklma mklfdkmgla gklmfdklma gklmfdsklmgmkf fkdjsjk fdjks jfkadjkskjnf djnksfnkjg dnjksaknj fdnjksagknjfdjakg jknfdnja n jkdj kndsnkjNFJD NKJSKNJ FKJS KDJNSNjkfnj kldakmgfdkag[;fdk gkmf dalkmglmkfdlkmgfkld lkgflkd nljgfds fknkn"
         return label
     }()
     
@@ -148,6 +147,7 @@ final class ProfileHeader : UICollectionReusableView {
         username.text = viewModel.usernameText
         followingLabel.attributedText = viewModel.followingString
         followersLabel.attributedText = viewModel.followersString
+        bioLabel.text = user.bio
     }
     
     @objc func dismissProfile() {
