@@ -11,6 +11,7 @@ private let reuseIdentifier = "EditProfileCell"
 
 protocol EditProfileViewControllerDelegate : AnyObject {
     func controller(_ controller: EditProfileViewController, wantsToUpdate user: User)
+    func handleLogout()
 }
 
 final class EditProfileViewController : UITableViewController {
@@ -164,6 +165,13 @@ extension EditProfileViewController: EditProfileCellDelegate {
 
 extension EditProfileViewController: EditProfileFooterDelegate {
     func handleLogout() {
-        
+        let alert = UIAlertController(title: nil, message: "Are you sure you want to logout?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { _ in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogout()
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
     }
 }
