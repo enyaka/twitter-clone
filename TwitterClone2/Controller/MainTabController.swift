@@ -8,6 +8,11 @@
 import UIKit
 import Firebase
 
+enum ActionButtonConfiguration {
+    case tweet(image: String)
+    case message(image: String)
+}
+
 final class MainTabController: UITabBarController {
     var user : User? {
         didSet {
@@ -16,6 +21,9 @@ final class MainTabController: UITabBarController {
             feed.user = user
         }
     }
+    
+    private var buttonConfig: ActionButtonConfiguration = .tweet(image: "new_tweet")
+    
     private let actionButton : UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -33,6 +41,7 @@ final class MainTabController: UITabBarController {
     }
     
     func configureUI() {
+        self.delegate = self
         let buttonHeight : CGFloat = 56
         view.addSubview(actionButton)
         actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: buttonHeight)
@@ -88,13 +97,33 @@ final class MainTabController: UITabBarController {
    
     
     @objc func tapped() {
+        let controller : UIViewController
         guard let user = user else {return}
-        let controller = UploadTweetController(user: user, config: .tweet)
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .fullScreen
-        nav.setDefaultNavBar()
-        present(nav, animated: true)
+        switch buttonConfig {
+            case .tweet(_):
+                controller = UploadTweetController(user: user, config: .tweet)
+                let nav = UINavigationController(rootViewController: controller)
+                nav.modalPresentationStyle = .fullScreen
+                nav.setDefaultNavBar()
+                present(nav, animated: true)
+            case .message(_):
+            selectedIndex = 1
+        }
         
     }
 
+}
+
+extension MainTabController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = viewControllers?.firstIndex(of: viewController)
+        buttonConfig = index == 3 ? .message(image: "mail") : .tweet(image: "new_tweet")
+        self.actionButton.setImage(UIImage(named: {
+            switch buttonConfig {
+            case .tweet(image: let image): return image
+            case .message(image: let image): return image
+            }
+        }()), for: .normal)
+        
+    }
 }
