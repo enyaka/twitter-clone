@@ -92,7 +92,10 @@ final class FeedViewController: UICollectionViewController {
     }
     
     @objc func profileImageTapped() {
-        print("DEBUG: GO TO USER PROFILE")
+        guard let user = user else {return}
+        let controller = ProfileViewController(user: user)
+        controller.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc func handleRefresh() {
