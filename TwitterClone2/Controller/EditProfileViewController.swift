@@ -17,6 +17,7 @@ final class EditProfileViewController : UITableViewController {
 
     private var user: User
     private lazy var headerView = EditProfileHeader(user: user)
+    private let footerView = EditProfileFooter()
     private let imagePicker = UIImagePickerController()
     private var isUserChanged : Bool = false
     private var imageChanged: Bool {
@@ -59,9 +60,11 @@ final class EditProfileViewController : UITableViewController {
     func configureTableView() {
         headerView.delegate = self
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.tableHeaderView = headerView 
+        tableView.tableHeaderView = headerView
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        footerView.delegate = self
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = footerView
     }
     
     func configureImagePicker() {
@@ -157,4 +160,10 @@ extension EditProfileViewController: EditProfileCellDelegate {
     }
     
     
+}
+
+extension EditProfileViewController: EditProfileFooterDelegate {
+    func handleLogout() {
+        
+    }
 }
