@@ -196,21 +196,17 @@ final class TweetHeader : UICollectionReusableView {
     }
     
     @objc func commentTapped() {
-        print("dsadas")
     }
     
     @objc func retweetTapped() {
-        print("dsadas")
 
     }
     
     @objc func likeTapped() {
-        print("dsadas")
 
     }
     
     @objc func shareTapped() {
-        print("dsadas")
 
     }
     

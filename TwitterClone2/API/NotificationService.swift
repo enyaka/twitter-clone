@@ -23,10 +23,10 @@ struct NotificationService {
 
     }
     
-    func fetchNotifications(completion: @escaping([Notification]) -> Void) {
+    fileprivate func extractedFunc(_ uid: String, _ completion: @escaping([Notification]) -> Void) {
         var notifications = [Notification]()
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        REF_NOTIFICATIONS.child(uid).observe(.childAdded) { snap in
+
+         REF_NOTIFICATIONS.child(uid).observe(.childAdded) { snap in
             guard let dictionary = snap.value as? [String: AnyObject] else {return}
             guard let tweetUid = dictionary["uid"] as? String else {return}
             UserSevice.shared.fetchUser(uid: tweetUid) { user in
@@ -34,7 +34,19 @@ struct NotificationService {
                 notifications.append(notification)
                 completion(notifications)
             }
-
+            
         }
+    }
+    
+    func fetchNotifications(completion: @escaping([Notification]) -> Void) {
+        let notifications = [Notification]()
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        REF_NOTIFICATIONS.child(uid).observeSingleEvent(of: .value) { snapshot in
+            if !snapshot.exists() {
+                completion(notifications)
+            }
+            
+        }
+        extractedFunc(uid,completion)
     }
 }
